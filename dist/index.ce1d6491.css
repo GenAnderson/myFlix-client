@@ -1,5 +1,76 @@
+* {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
 .my-flix {
-  color: #4682b4;
+  font-family: Geologica;
+  font-size: 10rem;
+}
+
+.movie-card {
+  max-width: 18rem;
+  text-align: center;
+  border-radius: 1rem;
+  margin: 2rem auto;
+  padding: 1rem;
+  box-shadow: .1rem .2rem .4rem gray;
+}
+
+.movie-card:hover {
+  cursor: pointer;
+  transition: all .2s;
+  box-shadow: .2rem .4rem .8rem gray;
+}
+
+.movie-card--img {
+  max-width: 12rem;
+  max-height: 12rem;
+  object-fit: cover;
+}
+
+.movie-card--title {
+  padding: .5rem;
+  font-weight: bold;
+}
+
+.movie-view {
+  text-align: left;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 5rem;
+  display: flex;
+}
+
+.movie-view--title {
+  text-align: center;
+  padding: .5rem;
+  font-size: 2.4rem;
+  font-weight: bold;
+}
+
+.movie-view--img {
+  max-width: 30rem;
+}
+
+.movie-view--btn {
+  text-transform: uppercase;
+  color: #e7e3e3;
+  background-color: #111;
+  border: none;
+  margin: 2rem auto;
+  padding: .5rem 1.5rem;
+  font-family: inherit;
+  font-size: 1.8rem;
+}
+
+.movie-view--btn:hover {
+  color: #111;
+  cursor: pointer;
+  background-color: #e7e3e3;
+  font-weight: bold;
+  transition: all .1s;
 }
 
 /*# sourceMappingURL=index.ce1d6491.css.map */
