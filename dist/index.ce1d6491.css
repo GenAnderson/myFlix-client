@@ -3,9 +3,47 @@
   font-size: 62.5%;
 }
 
+button {
+  width: -moz-fit-content;
+  width: fit-content;
+  background-color: #e4e49c;
+  border: none;
+  border-radius: .6rem;
+  margin: 1rem 0;
+  padding: .5rem 1rem;
+  font-family: inherit;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: #e4e49c77;
+}
+
+form {
+  width: 100%;
+  flex-direction: column;
+  font-size: 2.4rem;
+  display: flex;
+}
+
+input {
+  width: 100%;
+  font-size: 1.8rem;
+}
+
 .my-flix {
   font-family: Geologica;
   font-size: 10rem;
+}
+
+.loginSignupContainer {
+  width: 100vh;
+  height: 100%;
+  margin: 2rem auto;
+  padding: 2rem;
+  font-size: 3rem;
 }
 
 .main-view {
@@ -29,6 +67,10 @@
     align-items: center;
     display: flex;
   }
+}
+
+.main-view--logoutBtnContainer {
+  text-align: center;
 }
 
 .movie-card {
@@ -58,7 +100,7 @@
 
 .movie-card--title {
   background-color: #e4e49c;
-  border-radius: 1rem;
+  border-radius: .6rem;
   margin-bottom: 1rem;
   padding: .5rem;
   font-size: 1.4rem;
