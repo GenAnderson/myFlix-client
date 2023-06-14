@@ -1,8 +1,36 @@
-$primary-color: rgb(7, 65, 31);
-
 * {
   box-sizing: border-box;
   font-size: 62.5%;
+}
+
+/*****Reusables*****/
+button {
+  font-family: inherit;
+  font-size: 1.6rem;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  margin: 1rem 0rem;
+  background-color: rgb(228, 228, 156);
+  border: none;
+  border-radius: 0.6rem;
+  width: fit-content;
+
+  &:hover {
+    background-color: rgba(228, 228, 156, 0.466);
+    cursor: pointer;
+  }
+}
+
+form {
+  font-size: 2.4rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  font-size: 1.8rem;
+  width: 100%;
 }
 
 .my-flix {
@@ -10,15 +38,48 @@ $primary-color: rgb(7, 65, 31);
   font-family: "Geologica";
 }
 
+.loginSignupContainer {
+  width: 100vh;
+  height: 100%;
+  margin: 2rem auto;
+  font-size: 3rem;
+  padding: 2rem;
+}
+
+.main-view {
+  max-width: 100rem;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+
+  @media (max-width: 48rem) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 26rem) {
+    grid-template-columns: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  &--logoutBtnContainer {
+    text-align: center;
+  }
+}
+
 // Movie card
 .movie-card {
-  max-width: 18rem;
+  width: 18rem;
   padding: 1rem;
-  margin: 2rem auto;
-  text-align: center;
+  margin: 1rem;
   box-shadow: 0.1rem 0.2rem 0.4rem gray;
-
   border-radius: 1rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 
   &:hover {
     cursor: pointer;
@@ -28,13 +89,17 @@ $primary-color: rgb(7, 65, 31);
 
   &--img {
     max-width: 12rem;
-    max-height: 12rem;
+    height: 10rem;
     object-fit: cover;
   }
 
   &--title {
     padding: 0.5rem;
     font-weight: bold;
+    font-size: 1.4rem;
+    background-color: rgb(228, 228, 156);
+    border-radius: 0.6rem;
+    margin-bottom: 1rem;
   }
 }
 
@@ -60,6 +125,9 @@ $primary-color: rgb(7, 65, 31);
     max-width: 30rem;
   }
 
+  &--directorBox {
+    padding: 1rem;
+  }
   &--btn {
     border: none;
     font-size: 1.8rem;
