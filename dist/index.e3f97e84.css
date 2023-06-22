@@ -2,6 +2,24 @@
   cursor: pointer;
 }
 
+.card-body {
+  justify-content: space-between;
+  align-items: baseline;
+  display: flex;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 13vw;
+  object-fit: cover;
+}
+
+@media (width <= 780px) {
+  .card-img-top {
+    height: 40vw;
+  }
+}
+
 .movie-view {
   padding: 2rem;
 }
@@ -17,6 +35,21 @@
 
 .movie-view img {
   width: 100%;
+}
+
+.movie-view--footer {
+  justify-content: space-between;
+  display: flex;
+}
+
+.profileView--container .form-label {
+  justify-content: space-between;
+  display: flex;
+}
+
+.profileView--heading {
+  font-size: 2rem;
+  font-weight: bold;
 }
 
 :root, [data-bs-theme="light"] {
