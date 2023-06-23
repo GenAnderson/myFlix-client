@@ -10,4 +10,9 @@
     font-size: 2rem;
     font-weight: bold;
   }
+
+  &--btnsContainer {
+    display: flex;
+    justify-content: space-between;
+  }
 }

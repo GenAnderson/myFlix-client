@@ -1,6 +1,8 @@
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
+import { AddFavorite } from "../favorites/add-favorite";
+
 import "./movie-view.scss";
 
 export const MovieView = ({ movies }) => {
@@ -30,7 +32,8 @@ export const MovieView = ({ movies }) => {
         <Link to={`/`}>
           <Button variant="dark my-2">Back</Button>
         </Link>
-        <Button variant="dark my-2">+</Button>
+
+        <AddFavorite movieId={movieId} />
       </div>
     </div>
   );

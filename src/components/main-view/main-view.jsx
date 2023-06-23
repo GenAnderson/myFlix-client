@@ -7,7 +7,7 @@ import { LoginView } from "../login-view/login-view";
 import { SignUpView } from "../signup-view/signup-view";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { ProfileView } from "../profile/profile-view";
-import { ChangeUsername } from "../profile/profile-changeUsername";
+import { ProfileUpdate } from "../profile/profile-update";
 
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -20,6 +20,7 @@ export const MainView = () => {
   const [token, setToken] = useState(storedToken ? storedToken : null);
 
   const [movies, setMovies] = useState([]);
+  const [updateUserInfo, setUpdateUserInfo] = useState(false);
 
   useEffect(() => {
     if (!token) {
@@ -46,6 +47,12 @@ export const MainView = () => {
         setMovies(moviesFromApi);
       });
   }, [token]);
+
+  useEffect(() => {
+    if (!token) {
+      return;
+    }
+  }, [updateUserInfo]);
 
   return (
     <BrowserRouter>
@@ -96,14 +103,11 @@ export const MainView = () => {
                 {!user ? (
                   <Navigate to="/login" replace />
                 ) : (
-                  <Col md={4}>
-                    <ProfileView user={user} />
-                  </Col>
+                  <ProfileView user={user} />
                 )}
               </>
             }
           />
-
           <Route
             path="/movies/:movieId"
             element={
@@ -142,20 +146,14 @@ export const MainView = () => {
           />
           {/* Profile Changes */}
           <Route
-            path="/profile/change-username"
+            path="/profile/update"
             element={
               <>
                 {!user ? (
                   <Navigate to="/login" replace />
                 ) : (
                   <Col md={4}>
-                    <ChangeUsername
-                      user={user}
-                      token={token}
-                      onLoggedIn={(user, token) => {
-                        setUser(user), setToken(token);
-                      }}
-                    />
+                    <ProfileUpdate user={user} token={token} />
                   </Col>
                 )}
               </>

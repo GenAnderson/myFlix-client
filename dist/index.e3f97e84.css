@@ -52,6 +52,11 @@
   font-weight: bold;
 }
 
+.profileView--btnsContainer {
+  justify-content: space-between;
+  display: flex;
+}
+
 :root, [data-bs-theme="light"] {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
