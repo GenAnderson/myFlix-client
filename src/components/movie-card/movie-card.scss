@@ -1,6 +1,6 @@
 .card {
-  &:hover {
-    cursor: pointer;
+  a {
+    color: black;
   }
   &-body {
     display: flex;

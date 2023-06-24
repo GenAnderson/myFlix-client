@@ -1,25 +1,25 @@
 import { Button } from "react-bootstrap";
 
-export const AddFavorite = ({ movieId, updateUser }) => {
+export const DeleteFavorite = ({ movieId, updateUser }) => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
 
   const bothHandlers = () => {
     updateUser();
-    addFavoriteHandler();
+    deleteFavoriteHandler();
   };
 
-  const addFavoriteHandler = () => {
+  const deleteFavoriteHandler = () => {
     fetch(
       `https://movieapi-yazx.onrender.com/users/${storedUser.Username}/movies/${movieId}`,
       {
-        method: "POST",
+        method: "DELETE",
         headers: { Authorization: `Bearer ${storedToken}` },
       }
     )
       .then((response) => {
         if (response.ok) {
-          alert("Movie added to favorites");
+          alert("Movie deleted from favorites");
         } else {
           alert("Something went wrong");
         }
@@ -29,7 +29,7 @@ export const AddFavorite = ({ movieId, updateUser }) => {
 
   return (
     <Button variant="dark me-1 mb-1" size="sm" onClick={bothHandlers}>
-      +
+      ×
     </Button>
   );
 };

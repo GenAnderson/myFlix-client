@@ -26,7 +26,7 @@ export const SignUpView = () => {
       },
     }).then((response) => {
       if (response.ok) {
-        alert("Signup successful");
+        alert("Signup successful. Please login");
         window.location = "login";
       } else {
         alert("Signup failed");
@@ -43,8 +43,8 @@ export const SignUpView = () => {
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          minLength={5}
           required
-          minLength="3"
         />
       </Form.Group>
       <Form.Group controlId="formPasswordSignup">

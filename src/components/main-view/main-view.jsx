@@ -9,8 +9,7 @@ import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { ProfileView } from "../profile/profile-view";
 import { ProfileUpdate } from "../profile/profile-update";
 
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import { Row, Col } from "react-bootstrap";
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -20,7 +19,6 @@ export const MainView = () => {
   const [token, setToken] = useState(storedToken ? storedToken : null);
 
   const [movies, setMovies] = useState([]);
-  const [updateUserInfo, setUpdateUserInfo] = useState(false);
 
   useEffect(() => {
     if (!token) {
@@ -48,11 +46,19 @@ export const MainView = () => {
       });
   }, [token]);
 
-  useEffect(() => {
-    if (!token) {
-      return;
-    }
-  }, [updateUserInfo]);
+  const updateUser = () => {
+    fetch(`https://movieapi-yazx.onrender.com/users/${user.Username}`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((response) => response.json())
+      .then((user) => {
+        setUser(user);
+      })
+      .catch((error) => {
+        alert("Something went wrong " + error);
+      });
+  };
 
   return (
     <BrowserRouter>
@@ -96,18 +102,7 @@ export const MainView = () => {
               </>
             }
           />
-          <Route
-            path="/profile"
-            element={
-              <>
-                {!user ? (
-                  <Navigate to="/login" replace />
-                ) : (
-                  <ProfileView user={user} />
-                )}
-              </>
-            }
-          />
+
           <Route
             path="/movies/:movieId"
             element={
@@ -118,7 +113,11 @@ export const MainView = () => {
                   <Col> The list is empty!</Col>
                 ) : (
                   <Col md={8}>
-                    <MovieView movies={movies} />
+                    <MovieView
+                      movies={movies}
+                      user={user}
+                      updateUser={updateUser}
+                    />
                   </Col>
                 )}
               </>
@@ -136,7 +135,11 @@ export const MainView = () => {
                   <>
                     {movies.map((movie) => (
                       <Col className="mb-4" key={movie.id} md={4}>
-                        <MovieCard movie={movie} user={user} />
+                        <MovieCard
+                          movie={movie}
+                          user={user}
+                          updateUser={updateUser}
+                        />
                       </Col>
                     ))}
                   </>
@@ -144,7 +147,27 @@ export const MainView = () => {
               </>
             }
           />
-          {/* Profile Changes */}
+          {/* Profile  */}
+          <Route
+            path="/profile"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : (
+                  <ProfileView
+                    user={user}
+                    movies={movies}
+                    token={token}
+                    updateUser={updateUser}
+                    onLoggedOut={() => {
+                      setUser(null), setToken(null), localStorage.clear();
+                    }}
+                  />
+                )}
+              </>
+            }
+          />
           <Route
             path="/profile/update"
             element={

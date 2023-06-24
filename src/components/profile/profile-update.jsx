@@ -2,7 +2,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
 
-export const ProfileUpdate = ({ user, token, onLoggedIn }) => {
+export const ProfileUpdate = ({ user, token }) => {
   const Bday = new Date(user.Birthday);
 
   const [username, setUsername] = useState(user.Username);

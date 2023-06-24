@@ -1,15 +1,13 @@
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
+import { Row, Col, Form, Button, Container } from "react-bootstrap";
+import { ViewFavorites } from "../favorites/view-favorites";
 
 import "./profile-view.scss";
+import { DeleteProfile } from "./profile-delete";
 
-export const ProfileView = ({ user }) => {
-  const { Username, Password, Email, Birthday, FavoriteMovies } = user;
-  const Bday = new Date(Birthday);
+export const ProfileView = ({ user, movies, updateUser, onLoggedOut }) => {
+  const Bday = new Date(user.Birthday);
+  const { FavoriteMovies } = user;
 
   return (
     <Container>
@@ -20,17 +18,17 @@ export const ProfileView = ({ user }) => {
             <Form>
               <Form.Group controlId="changeUsername">
                 <Form.Label>Username:</Form.Label>
-                <Form.Control type="text" value={Username} disabled />
+                <Form.Control type="text" value={user.Username} disabled />
               </Form.Group>
 
               <Form.Group controlId="changePassword">
                 <Form.Label>Password:</Form.Label>
-                <Form.Control type="password" value={Password} disabled />
+                <Form.Control type="password" value={user.Password} disabled />
               </Form.Group>
 
               <Form.Group controlId="changeEmail">
                 <Form.Label>Email:</Form.Label>
-                <Form.Control type="email" value={Email} disabled />
+                <Form.Control type="email" value={user.Email} disabled />
               </Form.Group>
 
               <Form.Group controlId="changeBirthday">
@@ -42,39 +40,26 @@ export const ProfileView = ({ user }) => {
                 />
               </Form.Group>
 
-              <Form.Group controlId="changeFavoriteMovies">
-                <Form.Label>Favorite Movies:</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={`${
-                    FavoriteMovies.length === 0
-                      ? "No Favorites"
-                      : FavoriteMovies
-                  }`}
-                  disabled
-                />
-              </Form.Group>
-
               <div className="profileView--btnsContainer">
                 <Link to="./update">
                   <Button variant="dark my-2">Edit Profile</Button>
                 </Link>
-                <Button variant="outline-danger my-2">Delete Profile</Button>
+
+                <Link to="./login">
+                  <DeleteProfile user={user} onLoggedOut={onLoggedOut} />
+                </Link>
               </div>
             </Form>
           </div>
         </Col>
 
         <Col>
-          <div className="Favorites-container">
-            <p>Favorites</p>
-            {FavoriteMovies.map((movie) => {
-              return <p>{movie}</p>;
-            })}
-            <Button variant="dark" size="sm">
-              Edit favorites
-            </Button>
-          </div>
+          <ViewFavorites
+            FavoriteMovies={FavoriteMovies}
+            movies={movies}
+            updateUser={updateUser}
+            user={user}
+          />
         </Col>
       </Row>
     </Container>

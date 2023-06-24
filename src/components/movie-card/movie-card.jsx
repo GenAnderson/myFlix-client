@@ -1,13 +1,13 @@
 import { PropTypes } from "prop-types";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import Button from "react-bootstrap/Button";
+import { DeleteFavorite } from "../favorites/delete-favorite";
+import { AddFavorite } from "../favorites/add-favorite";
 
 import "./movie-card.scss";
-import { useEffect } from "react";
 
-export const MovieCard = ({ movie }) => {
-  const handleAddMovie = () => (movie) => {};
+export const MovieCard = ({ movie, user, updateUser }) => {
+  const { FavoriteMovies } = user;
 
   return (
     <Card className="h-100">
@@ -16,11 +16,21 @@ export const MovieCard = ({ movie }) => {
         style={{ textDecoration: "none" }}
       >
         <Card.Img variant="top" src={movie.ImagePath} />
-        <Card.Body>
-          <Card.Title>{movie.Title}</Card.Title>
-          <Button variant="dark">+</Button>
-        </Card.Body>
       </Link>
+      <Card.Body>
+        {" "}
+        <Link
+          to={`/movies/${encodeURIComponent(movie.id)}`}
+          style={{ textDecoration: "none" }}
+        >
+          <Card.Title>{movie.Title}</Card.Title>{" "}
+        </Link>
+        {FavoriteMovies.includes(movie.id) ? (
+          <DeleteFavorite movieId={movie.id} updateUser={updateUser} />
+        ) : (
+          <AddFavorite movieId={movie.id} updateUser={updateUser} />
+        )}
+      </Card.Body>
     </Card>
   );
 };

@@ -1,5 +1,5 @@
-.card:hover {
-  cursor: pointer;
+.card a {
+  color: #000;
 }
 
 .card-body {
@@ -40,6 +40,19 @@
 .movie-view--footer {
   justify-content: space-between;
   display: flex;
+}
+
+.favorites-container {
+  max-height: 80vh;
+  overflow: scroll;
+}
+
+.favorites-container ul {
+  padding-inline-start: 0;
+}
+
+.favorites-container li {
+  list-style: none;
 }
 
 .profileView--container .form-label {
