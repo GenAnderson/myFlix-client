@@ -1,30 +1,35 @@
 import { PropTypes } from "prop-types";
 import { Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { DeleteFavorite } from "../favorites/delete-favorite";
+import { AddFavorite } from "../favorites/add-favorite";
 
 import "./movie-card.scss";
 
-export const MovieCard = ({ movie, onMovieClick }) => {
+export const MovieCard = ({ movie, user, updateUser }) => {
+  const { FavoriteMovies } = user;
+
   return (
-    // <div
-    //   className="movie-card"
-    //   onClick={() => {
-    //     onMovieClick(movie);
-    //   }}
-    // >
-    //   <div className="movie-card--title">{movie.Title}</div>
-    //   <div className="movie-card--imgContainer">
-    //     <img className="movie-card--img" src={movie.ImagePath} />
-    //   </div>
-    // </div>
-    <Card
-      className="h-100"
-      onClick={() => {
-        onMovieClick(movie);
-      }}
-    >
-      <Card.Img variant="top" src={movie.ImagePath} />
+    <Card className="h-100">
+      <Link
+        to={`/movies/${encodeURIComponent(movie.id)}`}
+        style={{ textDecoration: "none" }}
+      >
+        <Card.Img variant="top" src={movie.ImagePath} />
+      </Link>
       <Card.Body>
-        <Card.Title>{movie.Title}</Card.Title>
+        {" "}
+        <Link
+          to={`/movies/${encodeURIComponent(movie.id)}`}
+          style={{ textDecoration: "none" }}
+        >
+          <Card.Title>{movie.Title}</Card.Title>{" "}
+        </Link>
+        {FavoriteMovies.includes(movie.id) ? (
+          <DeleteFavorite movieId={movie.id} updateUser={updateUser} />
+        ) : (
+          <AddFavorite movieId={movie.id} updateUser={updateUser} />
+        )}
       </Card.Body>
     </Card>
   );
@@ -35,5 +40,4 @@ MovieCard.propTypes = {
     Title: PropTypes.string.isRequired,
     ImagePath: PropTypes.string.isRequired,
   }).isRequired,
-  onMovieClick: PropTypes.func.isRequired,
 };

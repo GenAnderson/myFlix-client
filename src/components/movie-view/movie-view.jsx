@@ -1,7 +1,17 @@
-import "./movie-view.scss";
+import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
+import { AddFavorite } from "../favorites/add-favorite";
+import { DeleteFavorite } from "../favorites/delete-favorite";
 
-export const MovieView = ({ movie, onBackClick }) => {
+import "./movie-view.scss";
+
+export const MovieView = ({ movies, updateUser, user }) => {
+  const { movieId } = useParams();
+  const { FavoriteMovies } = user;
+
+  const movie = movies.find((m) => m.id === movieId);
+
   return (
     <div className="movie-view">
       <div>
@@ -20,9 +30,17 @@ export const MovieView = ({ movie, onBackClick }) => {
         <div>Genre: {movie.GenreName}</div>
         <div>Genre description: {movie.GenreDescription}</div>
       </div>
-      <Button variant="dark my-2" onClick={onBackClick}>
-        Back
-      </Button>
+      <div className="movie-view--footer">
+        <Link to={`/`}>
+          <Button variant="dark">Back</Button>
+        </Link>
+
+        {FavoriteMovies.includes(movie.id) ? (
+          <DeleteFavorite movieId={movie.id} updateUser={updateUser} />
+        ) : (
+          <AddFavorite movieId={movie.id} updateUser={updateUser} />
+        )}
+      </div>
     </div>
   );
 };
