@@ -42,19 +42,6 @@
   display: flex;
 }
 
-.favorites-container {
-  max-height: 80vh;
-  overflow: scroll;
-}
-
-.favorites-container ul {
-  padding-inline-start: 0;
-}
-
-.favorites-container li {
-  list-style: none;
-}
-
 .profileView--container .form-label {
   justify-content: space-between;
   display: flex;
@@ -68,6 +55,19 @@
 .profileView--btnsContainer {
   justify-content: space-between;
   display: flex;
+}
+
+.favorites-container {
+  max-height: 80vh;
+  overflow: scroll;
+}
+
+.favorites-container ul {
+  padding-inline-start: 0;
+}
+
+.favorites-container li {
+  list-style: none;
 }
 
 :root, [data-bs-theme="light"] {

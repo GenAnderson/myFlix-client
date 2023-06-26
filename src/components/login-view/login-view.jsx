@@ -36,6 +36,16 @@ export const LoginView = ({ onLoggedIn }) => {
       });
   };
 
+  const testArray = ["cat", "dog", "bear", "chicken", "lion", "mouse"];
+
+  const actionindex = 1;
+  // console.log(testArray.filter((index, i) => ));
+
+  const matchindex = (number) => number === actionindex;
+
+  // console.log(testArray.map((_, index) => index === actionindex));
+  console.log(testArray.filter(matchindex));
+
   return (
     <Form onSubmit={handleSubmit}>
       LOGIN
