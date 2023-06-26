@@ -27280,7 +27280,57 @@ $RefreshReg$(_c, "MainView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"isJE2","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"hEGRR","../movie-card/movie-card":"bwuIu","react":"21dqq","../movie-view/movie-view":"ggaUx"}],"isJE2":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","@parcel/transformer-js/src/esmodule-helpers.js":"isJE2","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"hEGRR"}],"bwuIu":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$67b2 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$67b2.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MovieCard", ()=>MovieCard);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+const MovieCard = ({ movie , onMovieClick  })=>{
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: "movie-card",
+        onClick: ()=>{
+            onMovieClick(movie);
+        },
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "movie-card--title",
+                children: movie.Title
+            }, void 0, false, {
+                fileName: "src/components/movie-card/movie-card.jsx",
+                lineNumber: 9,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                className: "movie-card--img",
+                src: movie.ImagePath
+            }, void 0, false, {
+                fileName: "src/components/movie-card/movie-card.jsx",
+                lineNumber: 10,
+                columnNumber: 7
+            }, undefined)
+        ]
+    }, void 0, true, {
+        fileName: "src/components/movie-card/movie-card.jsx",
+        lineNumber: 3,
+        columnNumber: 5
+    }, undefined);
+};
+_c = MovieCard;
+var _c;
+$RefreshReg$(_c, "MovieCard");
+
+  $parcel$ReactRefreshHelpers$67b2.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"isJE2","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"hEGRR"}],"isJE2":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -27448,57 +27498,7 @@ function registerExportsForReactRefresh(module1) {
     }
 }
 
-},{"9b5bd90f31d5e1f1":"4pb51"}],"bwuIu":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$67b2 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$67b2.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "MovieCard", ()=>MovieCard);
-var _jsxDevRuntime = require("react/jsx-dev-runtime");
-const MovieCard = ({ movie , onMovieClick  })=>{
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        className: "movie-card",
-        onClick: ()=>{
-            onMovieClick(movie);
-        },
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "movie-card--title",
-                children: movie.Title
-            }, void 0, false, {
-                fileName: "src/components/movie-card/movie-card.jsx",
-                lineNumber: 9,
-                columnNumber: 7
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
-                className: "movie-card--img",
-                src: movie.ImagePath
-            }, void 0, false, {
-                fileName: "src/components/movie-card/movie-card.jsx",
-                lineNumber: 10,
-                columnNumber: 7
-            }, undefined)
-        ]
-    }, void 0, true, {
-        fileName: "src/components/movie-card/movie-card.jsx",
-        lineNumber: 3,
-        columnNumber: 5
-    }, undefined);
-};
-_c = MovieCard;
-var _c;
-$RefreshReg$(_c, "MovieCard");
-
-  $parcel$ReactRefreshHelpers$67b2.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"isJE2","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"hEGRR"}],"ggaUx":[function(require,module,exports) {
+},{"9b5bd90f31d5e1f1":"4pb51"}],"ggaUx":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$e9f6 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
