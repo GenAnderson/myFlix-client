@@ -1,0 +1,21 @@
+.movie-view {
+  padding: 2rem;
+
+  &--title {
+    font-weight: bold;
+    text-align: center;
+  }
+  &--directorBox {
+    border-top: 0.1rem solid darkgray;
+  }
+  &--genreBox {
+    border-top: 0.1rem solid darkgray;
+  }
+  img {
+    width: 100%;
+  }
+  &--footer {
+    display: flex;
+    justify-content: space-between;
+  }
+}

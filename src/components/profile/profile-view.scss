@@ -1,0 +1,18 @@
+.profileView {
+  &--container {
+    .form-label {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  &--heading {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  &--btnsContainer {
+    display: flex;
+    justify-content: space-between;
+  }
+}

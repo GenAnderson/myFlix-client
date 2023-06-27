@@ -1,95 +1,189 @@
-import { useState } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
+import { LoginView } from "../login-view/login-view";
+import { SignUpView } from "../signup-view/signup-view";
+import { NavigationBar } from "../navigation-bar/navigation-bar";
+import { ProfileView } from "../profile/profile-view";
+import { ProfileUpdate } from "../profile/profile-update";
+
+import { Row, Col } from "react-bootstrap";
 
 export const MainView = () => {
-  const [movies, setMovies] = useState([
-    {
-      id: 1,
-      Title: "Gladiator",
-      Description:
-        "A former Roman General sets out to exact vengeance against the corrupt emperor.",
-      ImagePath:
-        "https://phantom-marca.unidadeditorial.es/2e754bc68d560e7e51b5fd4bba1e1c53/resize/660/f/webp/assets/multimedia/imagenes/2023/01/09/16732927392128.jpg",
-      Genre: {
-        Name: "Drama",
-        Description:
-          "Drama is the specific mode of fiction represented in performance: a play, opera, mime, ballet, etc., performed in a theatre, or on radio or television.",
-      },
-      Director: {
-        Name: "Ridley Scott",
-        Bio: "Sir Ridley Scott is an English film director and producer.",
-        Birth: 1937,
-      },
-    },
-    {
-      id: 2,
-      Title: "Spirited Away",
-      Description:
-        "During her family's move to the suburbs, a sullen 10 year old girl wanders into a world ruled by gods, witches, and spirits.",
-      ImagePath:
-        "https://images.saymedia-content.com/.image/c_limit%2Ccs_srgb%2Cq_auto:eco%2Cw_620/MTc0NDg0MTIyODI2NDUwMjgw/movies-like-spirited-away.webp",
-      Genre: {
-        Name: "Animated",
-        Description:
-          "A colleciton of illustrations that are photographed frame by frame and then played in quick succession",
-      },
-      Director: {
-        Name: "Hayao Miyazaki",
-        Bio: "A japanese animator, director, producer, screenwriter, auther, and manga artist",
-        Birth: 1941,
-      },
-    },
-    {
-      id: 3,
-      Title: "Silence of the Lambs",
-      Description:
-        "A young FBI cadet must receive the help of an incarcerated and manipulative cannibalkiller to help catch another serial killer.",
-      ImagePath:
-        "https://culturedvultures.com/wp-content/uploads/2021/08/Silence-of-the-Lambs-1188x675.jpg",
-      Genre: {
-        Name: "Thriller",
-        Description:
-          "Thriller film, also known as suspense film or suspense thriller, is a broad film genre that involves excitement and suspense in the audience.",
-      },
-      Director: {
-        Name: "Jonathan Demme",
-        Bio: "Robert Jonathan Demme was an American director, producer, and screenwriter.",
-        Birth: 1944,
-      },
-    },
-  ]);
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const storedToken = localStorage.getItem("token");
 
-  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [user, setUser] = useState(storedUser ? storedUser : null);
+  const [token, setToken] = useState(storedToken ? storedToken : null);
 
-  if (movies.length === 0) {
-    return <div>The list is empty</div>;
-  }
+  const [movies, setMovies] = useState([]);
 
-  if (selectedMovie) {
-    return (
-      <div>
-        <MovieView
-          movie={selectedMovie}
-          onBackClick={() => {
-            setSelectedMovie(null);
-          }}
-        />
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (!token) {
+      return;
+    }
+    fetch("https://movieapi-yazx.onrender.com/movies", {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const moviesFromApi = data.map((movie) => {
+          return {
+            id: movie._id,
+            Title: movie.Title,
+            ImagePath: movie.ImagePath,
+            Description: movie.Description,
+            DirectorName: movie.Director.Name,
+            DirectorBio: movie.Director.Bio,
+            DirectorBirth: movie.Director.Birth,
+            GenreName: movie.Genre.Name,
+            GenreDescription: movie.Genre.Description,
+          };
+        });
+        setMovies(moviesFromApi);
+      });
+  }, [token]);
+
+  const updateUser = () => {
+    fetch(`https://movieapi-yazx.onrender.com/users/${user.Username}`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((response) => response.json())
+      .then((user) => {
+        setUser(user);
+      })
+      .catch((error) => {
+        alert("Something went wrong " + error);
+      });
+  };
 
   return (
-    <div className="main-view">
-      {movies.map((movie) => (
-        <MovieCard
-          key={movie.id}
-          movie={movie}
-          onMovieClick={(newSelectedMovie) => {
-            setSelectedMovie(newSelectedMovie);
-          }}
-        />
-      ))}
-    </div>
+    <BrowserRouter>
+      <NavigationBar
+        user={user}
+        onLoggedOut={() => {
+          setUser(null), setToken(null), localStorage.clear();
+        }}
+      />
+      <Row className="justify-content-md-center">
+        <Routes>
+          <Route
+            path="/signup"
+            element={
+              <>
+                {user ? (
+                  <Navigate to="/" />
+                ) : (
+                  <Col md={5}>
+                    <SignUpView />
+                  </Col>
+                )}
+              </>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <>
+                {user ? (
+                  <Navigate to="/" replace />
+                ) : (
+                  <Col md={5}>
+                    <LoginView
+                      onLoggedIn={(user, token) => {
+                        setUser(user), setToken(token);
+                      }}
+                    />
+                  </Col>
+                )}
+              </>
+            }
+          />
+
+          <Route
+            path="/movies/:movieId"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : movies.length === 0 ? (
+                  <Col> The list is empty!</Col>
+                ) : (
+                  <Col md={8}>
+                    <MovieView
+                      movies={movies}
+                      user={user}
+                      updateUser={updateUser}
+                    />
+                  </Col>
+                )}
+              </>
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : movies.length === 0 ? (
+                  <Col>The list is empty!</Col>
+                ) : (
+                  <>
+                    {movies.map((movie) => (
+                      <Col className="mb-4" key={movie.id} md={4}>
+                        <MovieCard
+                          movie={movie}
+                          user={user}
+                          updateUser={updateUser}
+                        />
+                      </Col>
+                    ))}
+                  </>
+                )}
+              </>
+            }
+          />
+          {/* Profile  */}
+          <Route
+            path="/profile"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : (
+                  <ProfileView
+                    user={user}
+                    movies={movies}
+                    token={token}
+                    updateUser={updateUser}
+                    onLoggedOut={() => {
+                      setUser(null), setToken(null), localStorage.clear();
+                    }}
+                  />
+                )}
+              </>
+            }
+          />
+          <Route
+            path="/profile/update"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : (
+                  <Col md={4}>
+                    <ProfileUpdate user={user} token={token} />
+                  </Col>
+                )}
+              </>
+            }
+          />
+        </Routes>
+      </Row>
+    </BrowserRouter>
   );
 };
