@@ -28,7 +28,7 @@ export const DeleteFavorite = ({ movieId, updateUser }) => {
   };
 
   return (
-    <Button variant="dark me-1 mb-1" size="sm" onClick={bothHandlers}>
+    <Button variant="outline-dark me-1 mb-1" size="sm" onClick={bothHandlers}>
       ×
     </Button>
   );
