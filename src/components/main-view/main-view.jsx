@@ -10,6 +10,7 @@ import { ProfileView } from "../profile/profile-view";
 import { ProfileUpdate } from "../profile/profile-update";
 
 import { Row, Col } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -17,8 +18,19 @@ export const MainView = () => {
 
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
-
   const [movies, setMovies] = useState([]);
+
+  // filter info start //
+  const [movieTitle, setMovieTitle] = useState();
+  const [updatedMovies, setUpdatedMovies] = useState(movies);
+
+  useEffect(() => {
+    const filteredMovies = movies.filter((movie) => {
+      return movie.Title.toLocaleLowerCase().includes(movieTitle);
+    });
+    setUpdatedMovies(filteredMovies);
+  }, [movieTitle]);
+  // filter info end //
 
   useEffect(() => {
     if (!token) {
@@ -43,6 +55,7 @@ export const MainView = () => {
           };
         });
         setMovies(moviesFromApi);
+        setUpdatedMovies(moviesFromApi);
       });
   }, [token]);
 
@@ -133,7 +146,18 @@ export const MainView = () => {
                   <Col>The list is empty!</Col>
                 ) : (
                   <>
-                    {movies.map((movie) => (
+                    {/* <FilterMovie /> */}
+                    <Form className="my-4">
+                      <Form.Group controlId="formFilter">
+                        <Form.Control
+                          placeholder="Search Movies"
+                          type="text"
+                          onChange={(e) => setMovieTitle(e.target.value)}
+                        />
+                      </Form.Group>
+                    </Form>
+
+                    {updatedMovies.map((movie) => (
                       <Col className="mb-4" key={movie.id} md={4}>
                         <MovieCard
                           movie={movie}
@@ -147,6 +171,7 @@ export const MainView = () => {
               </>
             }
           />
+
           {/* Profile  */}
           <Route
             path="/profile"
