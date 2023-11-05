@@ -1,11 +1,20 @@
-# myFlix
+# MyFlix
 
-### Uses React & SCSS and bootstrap
+MyFlix-client allows users to discover and manage their favorite movies. This is the client side of my movieAPI project.
 
-Create a profile and save your favorite movies from a limited selection. You can also remove favorite movies or change your profile information.
+## Features
 
-My app fetches it's movie library from an API I host through Mongodb Atlas.
+- App displays a welcome view with registration and sign-on options for users
+- Main app screen consists of a limited number of movies to select from
+- Navbar allows access to user profile and logout options
+- User profile allows you to make changes
+  - Edit user information
+  - Remove a movie from favorites
+  - Delete profile
+- Users can select a movie card to get more details about the movie
 
-1. Signup
-2. Login
-3. Start adding your favorite movies
+## Tech stack
+
+- React
+- SCSS
+- Bootstrap
