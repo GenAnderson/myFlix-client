@@ -13,6 +13,10 @@ export const LoginView = ({ onLoggedIn }) => {
       Password: password,
     };
 
+    /**
+     * Change CORs on movie API if site doesn't have permission
+     *   */
+
     fetch("https://movieapi-yazx.onrender.com/login", {
       method: "POST",
       headers: {
