@@ -1,13 +1,16 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { Spinner } from "react-bootstrap";
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setIsLoading(true);
     const data = {
       Username: username,
       Password: password,
@@ -26,6 +29,7 @@ export const LoginView = ({ onLoggedIn }) => {
     })
       .then((response) => response.json())
       .then((data) => {
+        setIsLoading(false);
         console.log("Login response: ", data);
         if (data.user) {
           localStorage.setItem("user", JSON.stringify(data.user));
@@ -36,6 +40,7 @@ export const LoginView = ({ onLoggedIn }) => {
         }
       })
       .catch((e) => {
+        setIsLoading(false);
         alert("Something went wrong");
       });
   };
@@ -61,8 +66,21 @@ export const LoginView = ({ onLoggedIn }) => {
           required
         />
       </Form.Group>
-      <Button type="submit" variant="dark my-2">
-        Submit
+      <Button type="submit" variant="dark my-2" disabled={isLoading}>
+        {isLoading ? (
+          <>
+            <Spinner
+              as="span"
+              animation="border"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+            />{" "}
+            Loading...
+          </>
+        ) : (
+          "Submit"
+        )}
       </Button>
     </Form>
   );

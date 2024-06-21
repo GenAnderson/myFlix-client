@@ -13,7 +13,7 @@ export const MovieView = ({ movies, updateUser, user }) => {
   const movie = movies.find((m) => m.id === movieId);
 
   return (
-    <div className="movie-view">
+    <div className="movie-view mainContainer">
       <div>
         <img className="movie-view--img" src={movie.ImagePath} />
       </div>
